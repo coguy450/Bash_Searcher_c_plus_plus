@@ -13,6 +13,7 @@ namespace fs = std::filesystem;
 Searcher::Searcher(fs::path p)
 {
   cout << "Instantiated searcher with path " << p << endl;
+  fileList.push_back(p);
 }
 
 void Searcher::openFile(fs::path fp)
@@ -27,7 +28,7 @@ void Searcher::openFile(fs::path fp)
 
 void Searcher::getFileList()
 {
-  for (auto i : myVector)
+  for (auto i : fileList)
     openFile(i);
 }
 
@@ -46,7 +47,7 @@ void Searcher::setSearchString(string s)
 int Searcher::getFilenames(fs::path &path)
 {
   for (const auto& entry : fs::directory_iterator(path))
-      myVector.push_back(entry.path());
+      fileList.push_back(entry.path());
   return 0;
 }
 

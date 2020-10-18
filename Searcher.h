@@ -9,7 +9,7 @@ class Searcher
 {
 private:
   set<string> searchResults;
-  vector<fs::path> myVector;
+  vector<fs::path> fileList;
   string searchStringSet;
   string getText(string &currentLine);
   void searchText(string &fileText);
@@ -18,7 +18,6 @@ private:
 
 public:
   Searcher(fs::path p);
-  void sayHi();
   void getFileList();
   void setSearchString(string s);
   int getFilenames(fs::path &path);
