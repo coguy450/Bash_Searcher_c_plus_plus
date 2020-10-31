@@ -16,6 +16,11 @@ Searcher::Searcher(fs::path p)
   fileList.push_back(p);
 }
 
+void Searcher::addPath(fs::path np)
+{
+  fileList.push_back(np);
+}
+
 void Searcher::openFile(fs::path fp)
 {
   ifstream f(fp);
@@ -51,20 +56,15 @@ int Searcher::getFilenames(fs::path &path)
   return 0;
 }
 
-string Searcher::getText(string &currentLine)
+bool Searcher::getText(string &currentLine)
 {
   if (currentLine.find(searchStringSet) != string::npos)
   {
-    auto d = "\n";
-    size_t posB = 0;
-    posB = currentLine.find(d);
-    // Could refactor this to use a boolean
-    string goodLine = currentLine.substr(0, posB);
-    return goodLine;
+    return true;
   }
   else
   {
-    return "";
+    return false;
   }
 };
 
@@ -80,10 +80,10 @@ void Searcher::searchText(string &fileText)
     currentL = fileText.substr(0, pos);
 
     // See if this line has the text in it
-    string qResult = getText(currentL);
+    bool qResult = getText(currentL);
 
     // If you get a result, insert it in a set to eliminate dups
-    if (qResult.length() > 0)
+    if (qResult == true)
     {
       searchResults.insert(currentL);
     }
@@ -94,7 +94,7 @@ void Searcher::searchText(string &fileText)
 
 // Loop through the contents of the set
 void Searcher::getResults()
-{
+{ // Try to make this a range based loop
   for (auto it = searchResults.begin(); it != searchResults.end(); it++)
       cout << *it << " " << endl;
 }

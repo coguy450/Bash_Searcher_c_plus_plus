@@ -11,7 +11,7 @@ private:
   set<string> searchResults;
   vector<fs::path> fileList;
   string searchStringSet;
-  string getText(string &currentLine);
+  bool getText(string &currentLine);
   void searchText(string &fileText);
 
   void openFile(fs::path p);
@@ -19,6 +19,7 @@ private:
 public:
   Searcher(fs::path p);
   void getFileList();
+  void addPath(fs::path np);
   void setSearchString(string s);
   int getFilenames(fs::path &path);
   void getResults();
